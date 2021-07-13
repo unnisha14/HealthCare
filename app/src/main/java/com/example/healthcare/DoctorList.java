@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+//This intent is to show online doctors list to the patient
 public class DoctorList extends AppCompatActivity {
 
     @Override

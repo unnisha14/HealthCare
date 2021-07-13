@@ -49,6 +49,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         registerAccountButton = (Button) findViewById(R.id.register);
 
         if (user.equals("Patient")){
+            //if patient then dept should not be visible
             deptText.setVisibility(View.GONE);
         }
 
@@ -69,12 +70,15 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                                         if (user.equals("Doctor")){
 
+                                            //doctor is a separate class which will make it easy to enter value and write to the firebase
                                             databaseReference = root.child("Doctor").child(uID);
                                             Doctor doctor = new Doctor(deptText.getText().toString(), emailText.getText().toString(), usernameText.getText().toString());
 
+                                            //this is to check whether the doc is online or not
                                             DatabaseReference db = FirebaseDatabase.getInstance().getReference("Department").child(deptText.getText().toString()).child(uID);
                                             db.setValue(true);
 
+                                            //doctor values written on database
                                             databaseReference.setValue(doctor)
                                                     .addOnCompleteListener(CreateAccountActivity.this, new OnCompleteListener<Void>(){
                                                         @Override
@@ -88,6 +92,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                                                     });
                                         }
                                         else{
+
+                                            //patient user then simple take username n email to write on database
                                             databaseReference = root.child("Patient").child(uID);
                                             Patient patient = new Patient(emailText.getText().toString(), usernameText.getText().toString());
 

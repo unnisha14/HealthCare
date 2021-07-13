@@ -55,6 +55,7 @@ public class PatientMainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent , View view , int position , long id) {
                 String dept = departmentList.get(position);
                 Intent intent = new Intent(PatientMainActivity.this,DoctorList.class);
+                //Here we gave the department name for the next intent
                 intent.putExtra("Dept",dept);
                 startActivity(intent);
             }

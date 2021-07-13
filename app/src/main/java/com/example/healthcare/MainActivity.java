@@ -53,9 +53,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(emailText.getText().toString()) || TextUtils.isEmpty(passwordText.getText().toString())){
+                    //to check if any string is not entered
                     Toast.makeText(MainActivity.this,"Fill the credentials",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    //final login
                     firebaseAuth.signInWithEmailAndPassword(emailText.getText().toString(),passwordText.getText().toString())
                             .addOnCompleteListener(MainActivity.this,new OnCompleteListener<AuthResult>(){
                                 @Override
@@ -65,12 +67,19 @@ public class MainActivity extends AppCompatActivity {
                                         user = firebaseAuth.getCurrentUser();
                                         String uid = user.getUid();
 
+                                        //Here, we check if the logged in is doctor or patient
+
                                         d1.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 if (snapshot.hasChild(uid)){
-                                                    //Toast.makeText(MainActivity.this,"check Doc " + check[0],Toast.LENGTH_SHORT).show();
+                                                    //if doc then thid will open DoctorsMainActivity
                                                     String dept = snapshot.child(uid).child("dept").getValue().toString();
+
+                                                    //here before login we make the active status online for the doc
+                                                    DatabaseReference db = FirebaseDatabase.getInstance().getReference("Department").child(uid);
+                                                    db.setValue(true);
+
                                                     Intent intent = new Intent(MainActivity.this,DoctorMainActivity.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     intent.putExtra("Dept",dept);
@@ -86,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 if (snapshot.hasChild(uid)){
-                                                    //Toast.makeText(MainActivity.this,"check P " + check[0],Toast.LENGTH_SHORT).show();
+                                                    //else here the patient main activity intent will be opened
                                                     Intent intent = new Intent(MainActivity.this,PatientMainActivity.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
@@ -96,21 +105,9 @@ public class MainActivity extends AppCompatActivity {
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError error) {}
                                         });
-
-                                        //Toast.makeText(MainActivity.this,"string " + check[0] + " " + uid,Toast.LENGTH_SHORT).show();
-
-                                        /*if (check[0].equals("Doctor")){
-                                            Intent intent = new Intent(MainActivity.this,PatientMainActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(intent);
-                                        }
-                                        else{
-                                            Intent intent = new Intent(MainActivity.this,PatientMainActivity.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(intent);
-                                        }*/
                                     }
                                     else{
+                                        //if you are anew user then this else will run
                                         Toast.makeText(MainActivity.this,"Failed to login",Toast.LENGTH_SHORT).show();
                                     }
                                 }
@@ -123,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
+                //Create acc as patient then patient value with user key will be passed the the create acc intent
                 intent.putExtra("user","Patient");
                 startActivity(intent);
             }
@@ -132,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
+                //Create acc as patient then doc value with user key will be passed the the create acc intent
                 intent.putExtra("user","Doctor");
                 startActivity(intent);
             }

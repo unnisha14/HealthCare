@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+//doctor logged in then this is the first intent where they will see the patient list with their latest messages as we see in any chatbox n doc will click on the patient nameand that will open the message column
 public class DoctorMainActivity extends AppCompatActivity {
 
     private static String department;
