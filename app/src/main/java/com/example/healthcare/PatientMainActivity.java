@@ -27,7 +27,7 @@ public class PatientMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_main);
 
         List<String> departmentList = new ArrayList<String>();
-        departmentList.add("ENT");
+        departmentList.add("Ear, Nose and Throat");
         departmentList.add("Gynaecology");
         departmentList.add("Pulmonology");
         departmentList.add("Dermatology");

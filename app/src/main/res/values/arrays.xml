@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dept">values
+        <item>"Unknown"</item>
+        <item>"Ear, Nose and Throat"</item>
+        <item>"Gynaecology"</item>
+        <item>"Pulmonology"</item>
+        <item>"Dermatology"</item>
+        <item>"Digestion"</item>
+        <item>"General Physician"</item>
+        <item>"Pediatrics"</item>
+        <item>"Orthopedic"</item>
+        <item>"Neurology"</item>
+        <item>"Cardiology"</item>
+        <item>"Sexology"</item>
+        <item>"Kidney and Urine"</item>
+        <item>"Eye and Vision"</item>
+        <item>"Diabetes and Endocrinology"</item>
+        <item>"Dental"</item>
+        <item>"Cancer"</item>
+        <item>"Physiotherapy"</item>
+        <item>"Psychological Counselling"</item>
+    </string-array>
+</resources>
