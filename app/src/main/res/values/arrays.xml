@@ -21,4 +21,10 @@
         <item>"Physiotherapy"</item>
         <item>"Psychological Counselling"</item>
     </string-array>
+    <string-array name="gender">values
+        <item>"Unknown"</item>
+        <item>"Female"</item>
+        <item>"Male"</item>
+        <item>"Transgender"</item>
+    </string-array>
 </resources>

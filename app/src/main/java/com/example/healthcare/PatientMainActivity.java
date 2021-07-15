@@ -1,8 +1,5 @@
 package com.example.healthcare;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,8 +8,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +22,18 @@ import java.util.List;
 public class PatientMainActivity extends AppCompatActivity {
 
     private GridView gridView;
+    private FirebaseUser user;
+
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_main);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        uid = user.getUid();
+
 
         List<String> departmentList = new ArrayList<String>();
         departmentList.add("Ear, Nose and Throat");
@@ -73,6 +82,10 @@ public class PatientMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.health_card:
+                Intent intent = new Intent(PatientMainActivity.this, MediCard.class);
+                intent.putExtra("uid",uid);
+                Toast.makeText(PatientMainActivity.this, "In patient",Toast.LENGTH_SHORT).show();
+                startActivity(intent);
                 return true;
             case R.id.signOut:
                 FirebaseAuth.getInstance().signOut();
